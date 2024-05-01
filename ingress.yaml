@@ -1,0 +1,33 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-ingress
+spec:
+  rules:
+  - host: ahmed638.io
+    http:
+      paths:
+      - path: /development
+        pathType: Prefix
+        backend:
+          service:
+            name: development-service
+            port:
+              number: 80
+      - path: /production
+        pathType: Prefix
+        backend:
+          service:
+            name: production-service
+            port:
+              number: 8080
+      - path: /test
+        pathType: Prefix
+        backend:
+          service:
+            name: test-service
+            port:
+              number: 8080
+
+  ingressClassName: nginx
+

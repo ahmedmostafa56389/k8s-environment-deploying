@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-production
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: production
+  template:
+    metadata:
+      labels:
+        app: production
+    spec:
+      containers:
+        - name: container-production
+          image: nginx
+          resources:
+            limits:
+              memory: 128Mi
+              cpu: 500m
+         # ports:
+        #    - containerPort: 8080
+  strategy:
+    type: RollingUpdate
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-development
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: development
+  template:
+    metadata:
+      labels:
+        app: development
+    spec:
+      containers:
+        - name: container-development
+          image: nginx
+          resources:
+            limits:
+              memory: 128Mi
+              cpu: 500m
+ #         ports:
+#            - containerPort: 8090
+  strategy:
+    type: RollingUpdate
+
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-test
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: test
+  template:
+    metadata:
+      labels:
+        app: test
+    spec:
+      containers:
+        - name: container-test
+          image: nginx
+          resources:
+            limits:
+              memory: 128Mi
+              cpu: 500m
+   #       ports:
+  #          - containerPort: 8090
+  strategy:
+    type: RollingUpdate
